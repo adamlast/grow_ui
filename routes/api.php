@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Core\ConfigGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/v1/request-qr-url/key/{device_id}',
+    function ($device_id) {
+        $key_manager = new \App\Core\KeyManager();
+        $url = $key_manager->getURL($device_id);
+        return $url;
+    });
+
